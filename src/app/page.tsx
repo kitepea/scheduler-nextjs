@@ -1,95 +1,53 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+import {
+    Week,
+    Month,
+    Agenda,
+    ScheduleComponent,
+    ViewsDirective,
+    ViewDirective,
+    EventSettingsModel,
+    ResourcesDirective,
+    ResourceDirective,
+    Inject,
+    Resize,
+    DragAndDrop
+} from '@syncfusion/ej2-react-schedule';
+import {timelineResourceData} from './datasource';
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    const eventSettings: EventSettingsModel = {dataSource: timelineResourceData}
+    const group = {byGroupID: false, resources: ['Projects', 'Categories']}
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    const projectData: Object[] = [
+        {text: 'PROJECT 1', id: 1, color: '#cb6bb2'},
+        {text: 'PROJECT 2', id: 2, color: '#56ca85'},
+        {text: 'PROJECT 3', id: 3, color: '#df5286'},
+    ];
+    const categoryData: Object[] = [
+        {text: 'Development', id: 1, color: '#1aaa55'},
+        {text: 'Testing', id: 2, color: '#7fa900'}
+    ];
+    return (
+        <>
+            <h2>Syncfusion React Schedule Component</h2>
+            <ScheduleComponent width='100%' height='550px' currentView='Month' selectedDate={new Date(2018, 3, 4)}
+                               eventSettings={eventSettings} group={group}>
+                <ViewsDirective>
+                    <ViewDirective option='Week'/>
+                    <ViewDirective option='Month'/>
+                    <ViewDirective option='Agenda'/>
+                </ViewsDirective>
+                <ResourcesDirective>
+                    <ResourceDirective field='ProjectId' title='Choose Project' name='Projects' allowMultiple={false}
+                                       dataSource={projectData} textField='text' idField='id' colorField='color'>
+                    </ResourceDirective>
+                    <ResourceDirective field='TaskId' title='Category' name='Categories' allowMultiple={true}
+                                       dataSource={categoryData} textField='text' idField='id' colorField='color'>
+                    </ResourceDirective>
+                </ResourcesDirective>
+                <Inject services={[Week, Month, Agenda, Resize, DragAndDrop]}/>
+            </ScheduleComponent>
+        </>
+    )
 }
