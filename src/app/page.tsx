@@ -19,12 +19,12 @@ export default function Home() {
     const eventSettings: EventSettingsModel = {dataSource: timelineResourceData}
     const group = {byGroupID: false, resources: ['Projects', 'Categories']}
 
-    const projectData: Object[] = [
+    const projectData: object[] = [
         {text: 'PROJECT 1', id: 1, color: '#cb6bb2'},
         {text: 'PROJECT 2', id: 2, color: '#56ca85'},
         {text: 'PROJECT 3', id: 3, color: '#df5286'},
     ];
-    const categoryData: Object[] = [
+    const categoryData: object[] = [
         {text: 'Development', id: 1, color: '#1aaa55'},
         {text: 'Testing', id: 2, color: '#7fa900'}
     ];
